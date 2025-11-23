@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Test Animation & Styles</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #111;
+      color: #fff;
+      overflow-x: hidden;
+    }
+
+    h1 {
+      text-align: center;
+      margin-top: 40px;
+      font-size: 3rem;
+      animation: fadeIn 2s ease;
+    }
+
+    /* Fade-in animation */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    /* Test block */
+    .block {
+      width: 80%;
+      margin: 40px auto;
+      padding: 30px;
+      background: #222;
+      border-radius: 20px;
+      box-shadow: 0 0 20px rgba(255,255,255,0.1);
+      transition: 0.3s ease;
+    }
+
+    .block:hover {
+      transform: scale(1.03);
+      box-shadow: 0 0 30px rgba(255,255,255,0.3);
+    }
+
+    /* Button styles */
+    .btn {
+      display: inline-block;
+      padding: 12px 20px;
+      margin-top: 10px;
+      background: #ff0055;
+      border-radius: 10px;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .btn:hover {
+      background: #ff3377;
+      transform: translateY(-3px);
+    }
+
+    /* Moving block */
+    .move-box {
+      width: 100px;
+      height: 100px;
+      background: #00aaff;
+      margin: 30px auto;
+      border-radius: 15px;
+      animation: moveX 3s infinite alternate ease-in-out;
+    }
+
+    @keyframes moveX {
+      from { transform: translateX(-150px); }
+      to { transform: translateX(150px); }
+    }
+
+    /* Scroll animation */
+    .hidden {
+      opacity: 0;
+      transform: translateY(50px);
+      transition: 0.8s ease;
+    }
+
+    .visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+  <h1>Test Page</h1>
+
+  <div class="block">This is a test block. Hover to see effects.</div>
+
+  <div class="block">
+    <div class="btn" onclick="alert('Button test OK!')">Click Test</div>
+  </div>
+
+  <div class="block">
+    <p>Moving animation block:</p>
+    <div class="move-box"></div>
+  </div>
+
+  <div class="block hidden scroll-block">Scroll reveal animation test</div>
+
+  <script>
+    // Scroll reveal effect
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    });
+
+    document.querySelectorAll('.hidden').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
