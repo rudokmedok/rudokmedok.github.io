@@ -3,82 +3,118 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Test Animation & Styles</title>
+  <title>Advanced Interactive Test Page</title>
   <style>
     body {
       margin: 0;
       font-family: Arial, sans-serif;
-      background: #111;
+      background: #0b0b0b;
       color: #fff;
       overflow-x: hidden;
     }
 
-    h1 {
-      text-align: center;
-      margin-top: 40px;
-      font-size: 3rem;
-      animation: fadeIn 2s ease;
+    header {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #1a1a1a, #333);
+      position: relative;
+      overflow: hidden;
     }
 
-    /* Fade-in animation */
+    /* Floating glowing circles */
+    .bubble {
+      position: absolute;
+      background: rgba(255,255,255,0.08);
+      border-radius: 50%;
+      animation: float 10s infinite ease-in-out;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-40px); }
+      100% { transform: translateY(0); }
+    }
+
+    h1.title {
+      font-size: 4rem;
+      text-align: center;
+      animation: fadeIn 2s ease;
+      z-index: 2;
+    }
+
     @keyframes fadeIn {
       from { opacity: 0; }
       to { opacity: 1; }
     }
 
-    /* Test block */
-    .block {
-      width: 80%;
-      margin: 40px auto;
-      padding: 30px;
-      background: #222;
+    /* Parallax section */
+    .parallax {
+      height: 100vh;
+      background-image: url('https://picsum.photos/1500/900?random=3');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 3rem;
+      text-shadow: 0 0 10px #000;
+    }
+
+    /* Section cards */
+    .content {
+      padding: 80px 40px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+    }
+
+    .card {
+      padding: 25px;
+      background: #181818;
       border-radius: 20px;
-      box-shadow: 0 0 20px rgba(255,255,255,0.1);
+      box-shadow: 0 0 20px rgba(255,255,255,0.07);
       transition: 0.3s ease;
+      transform: perspective(600px) rotateX(0) rotateY(0);
     }
 
-    .block:hover {
-      transform: scale(1.03);
-      box-shadow: 0 0 30px rgba(255,255,255,0.3);
+    .card:hover {
+      transform: perspective(600px) rotateX(4deg) rotateY(-4deg) scale(1.03);
+      box-shadow: 0 0 30px rgba(255,255,255,0.2);
     }
 
-    /* Button styles */
-    .btn {
-      display: inline-block;
-      padding: 12px 20px;
-      margin-top: 10px;
-      background: #ff0055;
-      border-radius: 10px;
-      color: white;
-      font-weight: bold;
-      cursor: pointer;
-      transition: 0.2s ease;
+    /* Interactive slider */
+    .slider-section {
+      background: #111;
+      padding: 60px 20px;
+      text-align: center;
     }
 
-    .btn:hover {
-      background: #ff3377;
-      transform: translateY(-3px);
+    .slider {
+      width: 80%;
+      margin: auto;
+      overflow: hidden;
+      border-radius: 20px;
+      box-shadow: 0 0 25px rgba(255,255,255,0.1);
     }
 
-    /* Moving block */
-    .move-box {
-      width: 100px;
-      height: 100px;
-      background: #00aaff;
-      margin: 30px auto;
-      border-radius: 15px;
-      animation: moveX 3s infinite alternate ease-in-out;
+    .slides {
+      display: flex;
+      transition: transform 0.6s ease;
     }
 
-    @keyframes moveX {
-      from { transform: translateX(-150px); }
-      to { transform: translateX(150px); }
+    .slides img {
+      width: 100%;
+      height: 400px;
+      object-fit: cover;
     }
 
-    /* Scroll animation */
+    /* Scroll reveal */
     .hidden {
       opacity: 0;
-      transform: translateY(50px);
+      transform: translateY(40px);
       transition: 0.8s ease;
     }
 
@@ -86,35 +122,62 @@
       opacity: 1;
       transform: translateY(0);
     }
+
+    footer {
+      padding: 40px;
+      text-align: center;
+      background: #111;
+    }
   </style>
 </head>
 <body>
-  <h1>Test Page</h1>
+  <header>
+    <h1 class="title">Interactive Test Page</h1>
+    <div class="bubble" style="width:120px;height:120px;top:20%;left:15%;animation-duration:12s;"></div>
+    <div class="bubble" style="width:80px;height:80px;top:60%;left:70%;animation-duration:15s;"></div>
+    <div class="bubble" style="width:150px;height:150px;top:30%;left:50%;animation-duration:18s;"></div>
+  </header>
 
-  <div class="block">This is a test block. Hover to see effects.</div>
+  <div class="parallax">Parallax Test</div>
 
-  <div class="block">
-    <div class="btn" onclick="alert('Button test OK!')">Click Test</div>
-  </div>
+  <section class="content">
+    <div class="card hidden">Hover tilt effect card #1</div>
+    <div class="card hidden">Hover tilt effect card #2</div>
+    <div class="card hidden">Hover tilt effect card #3</div>
+  </section>
 
-  <div class="block">
-    <p>Moving animation block:</p>
-    <div class="move-box"></div>
-  </div>
+  <section class="slider-section">
+    <h2>Image Slider Test</h2>
+    <div class="slider">
+      <div class="slides" id="slideWrap">
+        <img src="https://picsum.photos/1000/400?random=11" />
+        <img src="https://picsum.photos/1000/400?random=12" />
+        <img src="https://picsum.photos/1000/400?random=13" />
+      </div>
+    </div>
+    <br>
+    <button onclick="nextSlide()" style="padding:10px 20px;border:0;border-radius:10px;cursor:pointer;">Next ▶</button>
+  </section>
 
-  <div class="block hidden scroll-block">Scroll reveal animation test</div>
+  <footer>Test Page © 2025</footer>
 
   <script>
-    // Scroll reveal effect
+    // Scroll reveal
     const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-        }
+        if (entry.isIntersecting) entry.target.classList.add('visible');
       });
     });
 
     document.querySelectorAll('.hidden').forEach(el => observer.observe(el));
+
+    // Simple slider
+    let index = 0;
+    function nextSlide() {
+      const slideWrap = document.getElementById('slideWrap');
+      index = (index + 1) % 3;
+      slideWrap.style.transform = `translateX(-${index * 100}%)`;
+    }
   </script>
 </body>
 </html>
